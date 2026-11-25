@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selected" value="sleepiness">
+      <ion-segment-button value="sleepiness">
+        <ion-label>Sleepiness</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="overnight">
+        <ion-label>Overnight Sleep</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (selected == 'sleepiness') {
+    @for (data of sleepinessData; track data.id) {
+      <ion-card>
+        <ion-card-header>
+        <ion-card-title>
+          {{ data.loggedAt | date:'mediumDate' }}
+        </ion-card-title>
+        <ion-card-subtitle> {{ data.loggedAt | date: 'shortTime' }}</ion-card-subtitle>
+        </ion-card-header>
+      <ion-card-content>{{ data.summaryString() }}</ion-card-content>
+      </ion-card>
+    }
+  } @else {
+      @for (data of overnightData; track data.id) {
+        <ion-card>
+          <ion-card-header>
+          <ion-card-title>
+            {{ data.dateString() }}
+          </ion-card-title>
+          <ion-card-subtitle> Total Sleep: {{ data.summaryString() }}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      }
+  }
+</ion-content>
